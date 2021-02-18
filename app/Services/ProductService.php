@@ -22,7 +22,7 @@ class ProductService{
         $array=[];
         $getList = $this->productReponsitory->getProduct($request->get('categories_id'),$request->get('product_id'));
         foreach($getList as $value){
-            $getOne = ['Tên sản phẩm'=>$value->title,'product_id'=>$value->_id,'categories_id'=>(string)$value->product['_id'],
+            $getOne = ['product_name'=>$value->title,'product_id'=>$value->_id,'categories_id'=>(string)$value->product['_id'],
                 'categories_name'=>$value->product['name']];
             array_push($array,$getOne);
         }

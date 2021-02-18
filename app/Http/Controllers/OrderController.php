@@ -31,4 +31,8 @@ namespace App\Http\Controllers;
          $listOrder = $this->orderService->getOrder($request);
          return response()->json($listOrder->toArray());
      }
+     public function delete(Request $request){
+        $delete = $this->orderService->delete($request);
+        return response()->json($delete->toArray());
+     }
  }

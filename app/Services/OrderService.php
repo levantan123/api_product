@@ -31,9 +31,16 @@ class OrderService{
         $array=[];
         $getOrder = $this->orderRepository->getOrder($request->get('order_id'));
         foreach ($getOrder as $value){
-            $getOne = ['Order_id'=>$value->_id,'Người mua'=>$value->user['full_name'],'Sản phẩm'=>$value->product['title'],'user_id'=>(string)$value->user_id,'product_id'=>(string)$value->product_id];
+            $getOne = ['order_id'=>$value->_id,'username'=>$value->user['full_name'],'product'=>$value->product['title'],'user_id'=>(string)$value->user_id,'product_id'=>(string)$value->product_id];
             array_push($array,$getOne);
         }
         return (new ResponseSuccess(['orders'=>$array],'Lấy bản ghi thành công!'));
+    }
+    public function delete($request){
+//        ,$user_id,$product_id
+        $find = $this->orderRepository->find(['_id'=>new ObjectId($request->get('order_id')),'user_id'=>new ObjectId($request->get('user_id'))])->first();
+        if (is_null($find))        return (new ResponseError(StatusCode::BAD_REQUEST,'order_id hoặc user_id không phù hợp!'));
+        $find->delete();
+        return (new ResponseSuccess($find,'Xóa bản ghi thành công'));
     }
 }
