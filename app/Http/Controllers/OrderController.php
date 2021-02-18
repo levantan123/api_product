@@ -32,6 +32,12 @@ namespace App\Http\Controllers;
          return response()->json($listOrder->toArray());
      }
      public function delete(Request $request){
+        $this->validate($request,[
+            'order_id'=>'exists:Orders,_id',
+            'user_id'=>'exists:Users,_id'
+        ],[
+            'exists'=>':attribute không tồn tại trong bảng',
+        ]);
         $delete = $this->orderService->delete($request);
         return response()->json($delete->toArray());
      }

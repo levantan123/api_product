@@ -39,7 +39,7 @@ class OrderService{
     public function delete($request){
 //        ,$user_id,$product_id
         $find = $this->orderRepository->find(['_id'=>new ObjectId($request->get('order_id')),'user_id'=>new ObjectId($request->get('user_id'))])->first();
-        if (is_null($find))        return (new ResponseError(StatusCode::BAD_REQUEST,'order_id hoặc user_id không phù hợp!'));
+        if (is_null($find))        return (new ResponseError(StatusCode::BAD_REQUEST,'order_id hoặc user_id không phù hợp! Xóa thất bại'));
         $find->delete();
         return (new ResponseSuccess($find,'Xóa bản ghi thành công'));
     }
