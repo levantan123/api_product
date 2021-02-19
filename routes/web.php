@@ -30,6 +30,7 @@ $router->get('product','ProductController@listProduct');
 #ORDER
 $router->post('order','OrderController@create');
 $router->get('order','OrderController@listOrder');
+$router->put('order','OrderController@update');
 $router->delete('order','OrderController@delete');
 
 $router->group(['middleware'=>'api'],function () use ($router){

@@ -31,10 +31,22 @@ namespace App\Http\Controllers;
          $listOrder = $this->orderService->getOrder($request);
          return response()->json($listOrder->toArray());
      }
+     public function update(Request $request){
+         $this->validate($request,[
+             'order_id'=>'exists:Orders,_id',
+             'user_id'=>'exists:Users,_id',
+             'amount'=>'gt:0'
+         ],[
+             'exists'=>':attribute không tồn tại trong bảng',
+             'gt'=>'Số lượng phải lớn hơn 0'
+         ]);
+         $update = $this->orderService->update($request);
+         return response()->json($update->toArray());
+     }
      public function delete(Request $request){
         $this->validate($request,[
             'order_id'=>'exists:Orders,_id',
-            'user_id'=>'exists:Users,_id'
+            'user_id'=>'exists:Users,_id',
         ],[
             'exists'=>':attribute không tồn tại trong bảng',
         ]);
